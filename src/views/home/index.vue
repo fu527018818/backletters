@@ -16,7 +16,10 @@
           :xs="24"
           class="card-item_box"
         >
-          <el-card shadow="hover">
+          <el-card
+            shadow="hover"
+            @click.native="goTo(item)"
+          >
             <div class="card-box">
               <div class="card-img">
                 <img :src="item.img" alt="">
@@ -40,15 +43,18 @@ export default {
       list: [
         {
           img: require('@/assets/images/home/baohanshenqing.png'),
-          tit: '保函申请'
+          tit: '保函申请',
+          url: '/apply/index'
         },
         {
           img: require('@/assets/images/home/xiangmuchaxun.png'),
-          tit: '保函查询'
+          tit: '保函查询',
+          url: '/project/search'
         },
         {
           img: require('@/assets/images/home/baohanchaxun.png'),
-          tit: '保函查询&申请电子发票'
+          tit: '保函查询&申请电子发票',
+          url: '/project/order'
         },
         {
           img: require('@/assets/images/home/gerenzhongxin.png'),
@@ -63,6 +69,13 @@ export default {
           tit: '正在开发'
         }
       ]
+    }
+  },
+  methods: {
+    goTo(item) {
+      this.$router.push({
+        path: item.url
+      })
     }
   }
 }

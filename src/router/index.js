@@ -56,11 +56,40 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/user/index',
     children: [{
-      path: '/index',
+      path: 'index',
       name: 'UserIndex',
       component: () => import('@/views/user/index'),
       meta: { title: 'user', icon: 'peoples' }
     }]
+  },
+  {
+    path: '/apply',
+    component: Layout,
+    redirect: '/apply/index',
+    children: [{
+      path: 'index',
+      name: 'ApplyIndex',
+      component: () => import('@/views/apply/index'),
+      meta: { title: '申请保函', icon: 'peoples' }
+    }]
+  },
+  {
+    path: '/project',
+    component: Layout,
+    redirect: '/project/search',
+    children: [{
+      path: 'search',
+      name: 'ProjectSearch',
+      component: () => import('@/views/project/search'),
+      meta: { title: '项目查询', icon: 'peoples' }
+    }, {
+      path: 'order',
+      name: 'ProjectOrder',
+      component: () => import('@/views/project/order'),
+      meta: { title: '保函查询', icon: 'peoples' }
+    }
+
+    ]
   },
   ...login,
   {
