@@ -1,0 +1,34 @@
+{
+    "files.eol": "\n",
+    "css.validate": false,
+    "emmet.triggerExpansionOnTab": true,
+    "eslint.validate": [
+      "vue",
+      "html",
+      "javascript",
+      "typescript",
+    ],
+    "files.associations": {
+      "*.css": "scss",
+      // "*.vue": "html"
+    },
+    "vetur.format.scriptInitialIndent": true,
+    "vetur.format.styleInitialIndent": true,
+    "vetur.format.options.useTabs": true,
+    "vetur.format.defaultFormatterOptions": {
+      "js-beautify-html": {
+        "wrap_attributes": "force-expand-multiline"
+      },
+      "prettyhtml": {
+        "printWidth": 150,
+        "singleQuote": true,
+        "wrapAttributes": true,
+        "sortAttributes": true
+      }
+    },
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "vue-i18n-ally.localesPaths": "src/lang",
+    "vue-i18n.i18nPaths": "src/lang"
+  }

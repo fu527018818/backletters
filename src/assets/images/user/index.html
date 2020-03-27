@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link type="text/css" rel="stylesheet" href="css/css.css" />
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<!--以下是页面独有JS,请不要放在公用php文件中-->
+<script type="text/javascript" src="js/index.js"></script>
+<!--以上是页面独有JS,请不要放在公用php文件中-->
+
+
+<!-- import JavaScript -->
+<script src="../lib/vue.min.js"></script>
+<script src="../lib/vue-resource.min.js"></script>
+<script src="../lib/axios.min.js"></script>
+<title></title>
+</head>
+
+<body>	<div class="main" id="nav_http">
+
+<div class="now_pos">
+			<a href="#">个人中心</a> > 个人账户
+		</div>
+
+		<div class="us_tp">
+			
+			<div class="face">
+				<img src="images/test/face1.jpg" alt="">
+			</div>
+
+			<div class="zh">账号:{{account.username}}</div>
+
+			<dl>
+				<dt>
+					<div class="vi">VIP {{header.vip_level}}</div>
+				</dt>
+				<dd>{{header.vip_level}}级代理</dd>
+			</dl>
+
+			<div class="links">
+				<span>邀请链接</span>
+				<a href="javascript:;" onclick="make_copy(this);" :data="account.invitation_code" class="lk">{{account.invitation_code}}</a>
+				<a href="javascript:;" onclick="make_copy(this);" :data="account.invitation_code" class="btn"></a>
+			</div>
+
+			<div class="stars">
+				<span class="h"></span>
+				<span class="h"></span>
+				<span class="h"></span>
+				<span></span>
+				<span></span>
+			</div>
+
+			<div class="clear"></div>
+		</div>
+
+		<div class="us_je">
+			
+			<div class="half lt">
+				
+				<div class="head">
+					<img src="images/jb1.png" alt="">
+					<span>我的金币</span>
+					<em></em>
+				</div>
+
+				<div class="sy">
+					剩余<strong>{{header.point_balance}}</strong>
+				</div>
+
+				<a href="#" class="buya">购买</a>
+
+			</div>
+<!--
+			<div class="half rt">
+				
+				<div class="head">
+					<img src="images/jb2.png" alt="">
+					<span>我的余额</span>
+					<a href="javascript:;" class="reload">刷新</a>
+				</div>
+
+				<div class="sy">
+					<strong>***</strong>
+					<a href="javascript:;" class="see"></a>
+				</div>
+
+				<a href="#" class="buya">充值</a>
+
+			</div>
+-->
+			<div class="clear"></div>
+		</div>
+
+		<div class="us_handle">
+			<span class="btn">账户中心</span>
+			<span class="btn">登录信息</span>
+			<span class="btn">购买明细</span>
+			<span class="btn hover">推广明细</span>
+			<!--<span class="btn">我的提现</span>-->
+
+			<div class="clear"></div>
+		</div>
+
+		<div class="us_con">
+        <div class="accou_yh">
+        <div class="tx">
+			<div class="pic"><img src="images/test/face1.jpg"></div>
+            <p></p>
+         </div>   
+          
+			<ul class="accou_list">
+            <li><span>账号：</span><a href="javascript:void()">{{account.username}}</a></li>
+            <li><span>QQ：{{account.qq}}</span></li>
+            <li><span>绑定微信：</span>飞  绑定地(福建-厦门)</li>
+			
+            <li><span>免验证IP段设置：</span></li>
+            </ul>
+            <div class="clear"></div>
+		</div>
+        
+        </div>
+
+		<div class="us_con">
+			
+			
+
+			<table class="Sig_table">
+				<tr>
+					<th>登录日期时间</th>
+					<th>登录IP</th>
+					<th>登录地点</th>
+					<th>说明</th>
+				</tr>
+			 <template v-for="site in login_log">
+				<tr>
+					<td>{{site.login_time}}</td>
+					<td>{{site.ip}}</td>
+					<td>{{site.ip_location}}</td>
+					<td :class="[site.status?'abnormal':'normal']">正常</td>
+				</tr>
+				</template>
+			</table>
+
+		</div>
+
+		<div class="us_con">
+		<p class="us_sume">目前累计消费：<span class="col_red">0.0元</span></p>
+        <p class="us_sume">目前消费等级：<span class="col_yellow">VIP0</span></p>	
+
+			<table>
+				<tr>
+					<th>购买日期</th>
+					<th>软件名</th>
+					<th>明细</th>
+					<th>期限</th>
+                    <th>金额</th>
+				</tr>
+			</table>
+
+		</div>
+
+		<div class="us_con show">
+			
+			<div class="tag">
+				<div class="s1">总邀请</div>
+				<div class="s2"><img src="images/us1.png" alt="">{{invite.total}}</div>
+			</div>
+			<div class="fg"></div>
+			<div class="tag">
+				<div class="s1">今日邀请</div>
+				<div class="s2"><img src="images/us2.png" alt="">{{invite.today}}</div>
+			</div>
+			<div class="fg"></div>
+			<div class="tag">
+				<div class="s1">昨天邀请</div>
+				<div class="s2"><img src="images/us3.png" alt="">{{invite.yesday}}</div>
+			</div>
+			<div class="fg"></div>
+			<div class="tag">
+				<div class="s1">今月邀请</div>
+				<div class="s2"><img src="images/us3.png" alt="">{{invite.month}}</div>
+			</div>
+			<div class="fg"></div>
+			<div class="tag">
+				<div class="s1">上月邀请</div>
+				<div class="s2"><img src="images/us3.png" alt="">{{invite.lastmonth}}</div>
+			</div>
+
+			<div class="clear"></div>
+
+			<table>
+				<tr>
+					<th>邀请日期</th>
+					<th>邀请账户</th>
+					<th>消费金额</th>
+					<th>代理等级</th>
+				</tr>
+				<template v-for="item in invite.list">
+				
+				<tr>
+					<td>{{item.created_at}}</td>
+					<td>{{item.username}}</td>
+					<td>{{item.amount}}</td>
+					<td>{{item.level}}</td>
+				</tr>
+				
+				</template>
+			</table>
+
+		</div>
+		<!--
+		<div class="us_con">
+			<table>
+				<tr>
+					<th>id</th>
+					<th>提现编号</th>
+					<th>提现类型</th>
+					<th>用户名</th>
+                    <th>机构名称</th>
+                    <th>姓名</th>
+                    <th>支付宝账号</th>
+                    <th>银行名称</th>
+                    <th>银行卡号</th>
+                    <th>开户行名称</th>
+                    <th>提现金额</th>
+                    <th>余额</th>
+				</tr>
+				
+			</table>
+
+		</div>
+-->
+	</div>
+
+</div>
+</body>
+
+
+<script>
+
+
+//var mPerson={};
+
+console.log("123");
+
+var nav_http = new Vue({
+    el: '#nav_http',
+    data: {
+     account:{},
+	 header:{},
+	 invite:{},
+	 login_log:[],
+    },//data
+    methods:{
+     
+
+    },//methods
+    mounted(){
+          //获取保存的配置数据
+     
+		console.log("mounted");
+		
+		 axios.post('/json/userCenter.json')
+                .then(function (response) {
+                 // console.log(response.data);
+					
+					nav_http.account=response.data.account;
+				
+					nav_http.login_log=response.data.login_log.list;
+				
+					nav_http.header=response.data.header;
+					nav_http.invite=response.data.invit;
+				
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+
+		
+
+     }//mounted
+	
+	
+  });
+
+
+
+function make_copy(obj){
+	var _data=obj.getAttribute('data');
+	parent.main_make_copy(_data);
+}
+
+</script>
+
+
+
+</html>
