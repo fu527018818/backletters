@@ -7,17 +7,28 @@
     </div>
     <div class="edit_box">
       <AppForm
-        label-width="80px"
+        label-width="120px"
         :model="form"
         :rules="authRules"
         cancel-text="返回"
         @submit-form="submit"
       >
         <el-form-item
-          label="新密码"
+          label="新密码："
+          prop="password"
         >
           <el-input
             v-model="form.password"
+            type="password"
+            placeholder="请输入密码"
+          />
+        </el-form-item>
+        <el-form-item
+          label="确认新密码："
+          prop="repass"
+        >
+          <el-input
+            v-model="form.repass"
             type="password"
             placeholder="请输入密码"
           />
@@ -44,9 +55,8 @@ export default {
   data() {
     return {
       form: {
-        mobile: null,
         password: null,
-        code: null
+        repass: null
       }
     }
   },
