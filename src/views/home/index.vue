@@ -58,11 +58,13 @@ export default {
         },
         {
           img: require('@/assets/images/home/gerenzhongxin.png'),
-          tit: '个人中心'
+          tit: '个人中心',
+          url: '/personal/index'
         },
         {
           img: require('@/assets/images/home/woyaorenzheng.png'),
-          tit: '我要认证'
+          tit: '我要认证',
+          url: '/certification/index'
         },
         {
           img: require('@/assets/images/home/woyaobaoan.png'),
