@@ -36,8 +36,17 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    proxy: {
+      '/jeecg-boot': {
+        target: 'http://api.sanrz.com:81/',
+        changeOrigin: true,
+        ws: false
+        // pathRewrite: { '^/jeecg-boot': '' }
+      }
+    },
     before: require('./mock/mock-server.js')
   },
+
   css: {
     // 配置全局
     loaderOptions: {

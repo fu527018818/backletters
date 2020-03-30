@@ -6,7 +6,7 @@ export default {
     data
   }), // 注册
   register: data => request({
-    url: '/v1/api/register',
+    url: '/jeecg-boot/sys/user/client/register',
     method: 'post',
     data
   }), // 修改密码
@@ -19,5 +19,20 @@ export default {
     url: '/v1/account/info',
     method: 'get',
     params: data
+  }),
+  getCode: data => request({
+    url: '/jeecg-boot/sys/client/sms',
+    method: 'post',
+    data
+  }),
+  getCodeGraphic: data => request({
+    url: '/jeecg-boot/sys/client/getCheckCode',
+    method: 'get',
+    params: data
+  }),
+  forgetPassword: data => request({
+    url: '/jeecg-boot/sys/user/client/forgetPassword',
+    method: 'post',
+    data
   })
 }

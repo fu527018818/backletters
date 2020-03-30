@@ -11,31 +11,48 @@
     </div>
     <div class="app-register_body">
       <AppForm
+        ref="appForm"
         label-width="80px"
         :model="form"
         :rules="authRules"
         cancel-text="返回"
         @submit-form="submit"
       >
-        <el-form-item label="手机号">
+        <el-form-item
+          prop="phone"
+          label="手机号"
+        >
           <el-input
-            v-model.number="form.mobile"
+            v-model="form.phone"
             placeholder="请输入手机号"
           />
         </el-form-item>
         <el-form-item
           label="验证码"
           class="app-code_box"
+          prop="smscode"
         >
           <el-input
-            v-model="form.code"
+            v-model="form.smscode"
             class="authCode"
             placeholder="请输入验证码"
           />
-          <span class="authCode_btn">获取验证码</span>
+          <span
+            class="authCode_btn"
+          >
+            <el-button
+              type="info"
+              plain
+              @click="getCode"
+            >
+              {{ !status?'获取验证码': count + 's' }}
+            </el-button>
+          </span>
+
         </el-form-item>
         <el-form-item
           label="密码"
+          prop="password"
         >
           <el-input
             v-model="form.password"
@@ -45,19 +62,24 @@
         </el-form-item>
         <el-form-item
           label="姓名"
+          prop="realname"
         >
           <el-input
-            v-model="form.username"
+            v-model="form.realname"
             placeholder="请输入姓名"
           />
         </el-form-item>
-        <el-form-item>
-          <el-checkbox v-model="form.agreement">我已阅读并同意《用户协议》</el-checkbox>
-        </el-form-item>
+        <!-- <el-form-item>
+          <el-checkbox
+            v-model="form.agreement"
+          >我已阅读并同意《用户协议》
+          </el-checkbox>
+        </el-form-item> -->
         <div slot="footer" class="footer_box">
           <el-button
             style="width:100%"
             type="primary"
+            @click="submit"
           >注册
           </el-button>
         </div>
@@ -69,45 +91,42 @@
 
 <script>
 import AppForm from '@/components/AppForm'
+import code from './mixins/code'
 // 用户注册和修改密码
 export default {
   name: 'Register',
   components: {
     AppForm
   },
+  mixins: [code],
   data() {
     return {
       form: {
-        mobile: null,
+        phone: null,
         password: null,
-        code: null,
-        username: null,
-        agreement: true
+        smscode: null,
+        realname: null
+        // agreement: true
       }
     }
   },
   computed: {
     authRules() {
       return {
-        mobile: [
+        phone: [
           this.$rules.required('手机号'),
           this.$rules.mobile
         ],
-        userName: [
+        realname: [
           this.$rules.required('账号'),
           this.$rules.account
         ],
-        oldPassword: [
-          this.$rules.required('密码'),
-          ...this.$rules.password()
+        smscode: [
+          this.$rules.required('验证码')
         ],
         password: [
           this.$rules.required('密码'),
           ...this.$rules.password()
-        ],
-        repass: [
-          this.$rules.required('密码'),
-          ...this.$rules.repassword(this.form, 'password')
         ]
       }
     }
@@ -116,11 +135,19 @@ export default {
 
   },
   methods: {
-    submit(callBack) {
-      callBack(() => {
-
-      }
-      )
+    submit() {
+      this.$refs.appForm.validate((valid) => {
+        if (valid) {
+          this.$api.register(
+            this.form
+          ).then(res => {
+            this.$message.success('注册成功')
+            this.$router.push({
+              path: '/home/login'
+            })
+          })
+        }
+      })
     }
   }
 

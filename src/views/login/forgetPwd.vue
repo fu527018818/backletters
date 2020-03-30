@@ -11,31 +11,47 @@
     </div>
     <div class="app-register_body">
       <AppForm
+        ref="appForm"
         label-width="80px"
         :model="form"
         :rules="authRules"
         cancel-text="返回"
         @submit-form="submit"
       >
-        <el-form-item label="手机号">
+        <el-form-item
+          prop="phone"
+          label="手机号"
+        >
           <el-input
-            v-model.number="form.mobile"
+            v-model.number="form.phone"
             placeholder="请输入手机号"
           />
         </el-form-item>
         <el-form-item
           label="验证码"
           class="app-code_box"
+          prop="smscode"
         >
           <el-input
-            v-model="form.code"
+            v-model="form.smscode"
             class="authCode"
             placeholder="请输入验证码"
           />
-          <span class="authCode_btn">获取验证码</span>
+          <span
+            class="authCode_btn"
+          >
+            <el-button
+              type="info"
+              plain
+              @click="getCode"
+            >
+              {{ !status?'获取验证码': count + 's' }}
+            </el-button>
+          </span>
         </el-form-item>
         <el-form-item
           label="新密码"
+          prop="password"
         >
           <el-input
             v-model="form.password"
@@ -47,6 +63,7 @@
           <el-button
             style="width:100%"
             type="primary"
+            @click="submit"
           >提交
           </el-button>
         </div>
@@ -57,6 +74,7 @@
 </template>
 
 <script>
+import code from './mixins/code'
 import AppForm from '@/components/AppForm'
 // 用户注册和修改密码
 export default {
@@ -64,50 +82,46 @@ export default {
   components: {
     AppForm
   },
+  mixins: [code],
   data() {
     return {
       form: {
-        mobile: null,
+        phone: null,
         password: null,
-        code: null
+        smscode: null
       }
     }
   },
   computed: {
     authRules() {
       return {
-        mobile: [
+        phone: [
           this.$rules.required('手机号'),
           this.$rules.mobile
-        ],
-        userName: [
-          this.$rules.required('账号'),
-          this.$rules.account
-        ],
-        oldPassword: [
-          this.$rules.required('密码'),
-          ...this.$rules.password()
         ],
         password: [
           this.$rules.required('密码'),
           ...this.$rules.password()
         ],
-        repass: [
-          this.$rules.required('密码'),
-          ...this.$rules.repassword(this.form, 'password')
+        smscode: [
+          this.$rules.required('验证码')
         ]
       }
     }
   },
-  mounted() {
-
-  },
   methods: {
-    submit(callBack) {
-      callBack(() => {
-
-      }
-      )
+    submit() {
+      this.$refs.appForm.validate((valid) => {
+        if (valid) {
+          this.$api.forgetPassword(this.form)
+            .then(res => {
+              this.$message.success('密码修改成功')
+              this.$router.push({
+                path: '/home/login'
+              })
+            })
+        }
+      })
     }
   }
 
