@@ -91,6 +91,43 @@ export const constantRouterMap = [
 
     ]
   },
+  {
+    path: '/personal',
+    component: Layout,
+    redirect: '/personal/index',
+    children: [{
+      path: 'index',
+      name: 'ProjectSearch',
+      component: () => import('@/views/personal/index'),
+      meta: { title: '个人中心', icon: 'peoples' }
+    },
+    {
+      path: 'changePassword',
+      name: 'ChangePassword',
+      component: () => import('@/views/personal/changePassword'),
+      meta: { title: '修改密码', icon: 'peoples' }
+    }
+
+    ]
+  },
+
+  {
+    path: '/certification',
+    component: Layout,
+    redirect: '/certification/index',
+    children: [{
+      path: 'index',
+      name: 'CertificationIndex',
+      component: () => import('@/views/certification/index'),
+      meta: { title: '我要认证', icon: 'peoples' }
+    }, {
+      path: 'company',
+      name: 'CertificationCompany',
+      component: () => import('@/views/certification/company'),
+      meta: { title: '企业认证', icon: 'peoples' }
+    }
+    ]
+  },
   ...login,
   {
     path: '/nested',

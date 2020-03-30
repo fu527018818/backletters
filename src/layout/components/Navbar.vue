@@ -60,9 +60,9 @@ export default {
 
 <style lang="scss" scoped>
 .navbar-box {
-  // width: 1000px;
-  // margin: 0 auto;
-  padding: 0 50px;
+  max-width: 1000px;
+  margin: 0 auto;
+  // padding: 0 50px;
 }
 .navbar {
   height: 50px;
