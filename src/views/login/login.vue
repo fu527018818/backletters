@@ -25,15 +25,35 @@
           placeholder="请输入手机号"
         />
       </el-form-item>
-      <el-form-item
+      <div
         v-if="loginType===2"
-        label="密码"
       >
-        <el-input
-          v-model="loginForm.password"
-          placeholder="请输入密码"
-        />
-      </el-form-item>
+        <el-form-item
+
+          label="密码"
+        >
+          <el-input
+            v-model="loginForm.password"
+            placeholder="请输入密码"
+          />
+        </el-form-item>
+        <el-form-item
+          label="验证码"
+          class="app-code_box"
+        >
+          <el-input
+            v-model="loginForm.code"
+            class="authCode"
+            placeholder="请输入验证码"
+          />
+          <span
+            class="authCode_btn"
+          >
+            1212
+          </span>
+        </el-form-item>
+      </div>
+
       <el-form-item
         v-if="loginType===1"
         label="验证码"
@@ -44,7 +64,17 @@
           class="authCode"
           placeholder="请输入验证码"
         />
-        <span class="authCode_btn">获取验证码</span>
+        <span
+          class="authCode_btn"
+        >
+          <el-button
+            type="info"
+            plain
+            @click="getCode"
+          >
+            {{ !status?'获取验证码': count + 's' }}
+          </el-button>
+        </span>
       </el-form-item>
       <div slot="footer" class="footer_box">
         <el-button
@@ -74,11 +104,13 @@
 
 <script>
 import AppForm from '@/components/AppForm'
+import code from './mixins/code'
 export default {
   name: 'Login',
   components: {
     AppForm
   },
+  mixins: [code],
   data() {
     return {
       loginType: 2,

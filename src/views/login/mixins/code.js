@@ -19,6 +19,7 @@ export default {
         }, 1000)
     },
     getCode() {
+      // 0 .登录模板、1.注册模板、2.忘记密码模板
       this.$api.getCode({
         phone: this.form.phone,
         smsmode: '1'

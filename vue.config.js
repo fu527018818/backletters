@@ -37,7 +37,7 @@ module.exports = {
       errors: true
     },
     proxy: {
-      '/jeecg-boot': {
+      '/bg': {
         target: 'http://api.sanrz.com:81/',
         changeOrigin: true,
         ws: false

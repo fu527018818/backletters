@@ -1,6 +1,13 @@
 <template>
-  <div class="gc-canvas" @click="reloadPic">
-    <canvas id="gc-canvas" :width="contentWidth" :height="contentHeight" />
+  <div
+    class="gc-canvas"
+    @click="reloadPic"
+  >
+    <canvas
+      id="gc-canvas"
+      :width="contentWidth"
+      :height="contentHeight"
+    />
   </div>
 </template>
 

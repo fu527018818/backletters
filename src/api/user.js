@@ -6,7 +6,7 @@ export default {
     data
   }), // 注册
   register: data => request({
-    url: '/jeecg-boot/sys/user/client/register',
+    url: '/bg/user/client/register',
     method: 'post',
     data
   }), // 修改密码
@@ -20,18 +20,21 @@ export default {
     method: 'get',
     params: data
   }),
+  // 短信验证码
   getCode: data => request({
-    url: '/jeecg-boot/sys/client/sms',
+    url: '/bg/client/sms',
     method: 'post',
     data
   }),
+  // 图像验证
   getCodeGraphic: data => request({
-    url: '/jeecg-boot/sys/client/getCheckCode',
+    url: '/bg/client/getCheckCode',
     method: 'get',
     params: data
   }),
+  // 忘记密码
   forgetPassword: data => request({
-    url: '/jeecg-boot/sys/user/client/forgetPassword',
+    url: '/bg/user/client/forgetPassword',
     method: 'post',
     data
   })
