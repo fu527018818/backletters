@@ -30,7 +30,7 @@
           prop="username"
         >
           <el-input
-            v-model="loginForm.username"
+            v-model="form.username"
             placeholder="请输入账号"
             type="number"
           />
@@ -40,7 +40,7 @@
           prop="password"
         >
           <el-input
-            v-model="loginForm.password"
+            v-model="form.password"
             placeholder="请输入密码"
           />
         </el-form-item>
@@ -50,7 +50,7 @@
           prop="captcha"
         >
           <el-input
-            v-model="loginForm.captcha"
+            v-model="form.captcha"
             class="authCode"
             placeholder="请输入验证码"
           />
@@ -74,7 +74,7 @@
           prop="phone"
         >
           <el-input
-            v-model="loginForm.phone"
+            v-model="form.phone"
             placeholder="请输入手机号"
             type="number"
           />
@@ -85,7 +85,7 @@
           prop="smscode"
         >
           <el-input
-            v-model="loginForm.smscode"
+            v-model="form.smscode"
             class="authCode"
             placeholder="请输入验证码"
           />
@@ -143,7 +143,7 @@ export default {
   data() {
     return {
       loginType: 2,
-      loginForm: {
+      form: {
         username: null,
         password: null,
         captcha: null,
