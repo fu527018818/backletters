@@ -5,6 +5,7 @@
       <el-radio-group
         v-model="loginType"
         class="loginType"
+        @change="changeType"
       >
         <el-radio-button :label="1">
           验证码登录
@@ -15,22 +16,28 @@
       </el-radio-group>
     </div>
     <AppForm
-      ref="loginForm"
-      :model="loginForm"
-      label-width="60px"
+      ref="form"
+      :model="form"
+      label-width="70px"
+      :rules="loginType===2?authRules:rulesType"
     >
-      <el-form-item label="手机号">
-        <el-input
-          v-model.number="loginForm.mobile"
-          placeholder="请输入手机号"
-        />
-      </el-form-item>
+
       <div
         v-if="loginType===2"
       >
         <el-form-item
-
+          label="账号"
+          prop="username"
+        >
+          <el-input
+            v-model="loginForm.username"
+            placeholder="请输入账号"
+            type="number"
+          />
+        </el-form-item>
+        <el-form-item
           label="密码"
+          prop="password"
         >
           <el-input
             v-model="loginForm.password"
@@ -40,46 +47,66 @@
         <el-form-item
           label="验证码"
           class="app-code_box"
+          prop="captcha"
         >
           <el-input
-            v-model="loginForm.code"
+            v-model="loginForm.captcha"
+            class="authCode"
+            placeholder="请输入验证码"
+          />
+          <span
+            class="authCode_btn img_btn"
+          >
+            <JGraphicCode
+              remote
+              :content-width="110"
+              :content-height="36"
+              @succeeCodeGraphic="getCodeGraphic"
+            />
+          </span>
+        </el-form-item>
+      </div>
+      <div
+        v-if="loginType===1"
+      >
+        <el-form-item
+          label="手机号"
+          prop="phone"
+        >
+          <el-input
+            v-model="loginForm.phone"
+            placeholder="请输入手机号"
+            type="number"
+          />
+        </el-form-item>
+        <el-form-item
+          label="验证码"
+          class="app-code_box"
+          prop="smscode"
+        >
+          <el-input
+            v-model="loginForm.smscode"
             class="authCode"
             placeholder="请输入验证码"
           />
           <span
             class="authCode_btn"
           >
-            1212
+            <el-button
+              type="info"
+              plain
+              @click="getCode"
+            >
+              {{ !status?'获取验证码': count + 's' }}
+            </el-button>
           </span>
         </el-form-item>
       </div>
-
-      <el-form-item
-        v-if="loginType===1"
-        label="验证码"
-        class="app-code_box"
-      >
-        <el-input
-          v-model="loginForm.code"
-          class="authCode"
-          placeholder="请输入验证码"
-        />
-        <span
-          class="authCode_btn"
-        >
-          <el-button
-            type="info"
-            plain
-            @click="getCode"
-          >
-            {{ !status?'获取验证码': count + 's' }}
-          </el-button>
-        </span>
-      </el-form-item>
       <div slot="footer" class="footer_box">
         <el-button
           style="width:100%"
           type="primary"
+          @click="login"
         >登录
         </el-button>
         <el-row class="open-box">
@@ -105,18 +132,78 @@
 <script>
 import AppForm from '@/components/AppForm'
 import code from './mixins/code'
+import JGraphicCode from '@/components/AppGraphicCode'
 export default {
   name: 'Login',
   components: {
-    AppForm
+    AppForm,
+    JGraphicCode
   },
   mixins: [code],
   data() {
     return {
       loginType: 2,
       loginForm: {
-        mobile: null,
-        password: null
+        username: null,
+        password: null,
+        captcha: null,
+        checkKey: null
+      }
+    }
+  },
+  computed: {
+    rulesType() {
+      return {
+        smscode: [
+          this.$rules.required('验证码')
+        ],
+        phone: [
+          this.$rules.required('手机号'),
+          this.$rules.mobile
+        ]
+      }
+    },
+    authRules() {
+      return {
+        username: [
+          this.$rules.required('账号')
+        ],
+        password: [
+          this.$rules.required('密码'),
+          ...this.$rules.password()
+        ],
+        captcha: [
+          this.$rules.required('验证码')
+        ]
+
+      }
+    }
+  },
+  methods: {
+    login() {
+      this.$refs.form.validate((valida) => {
+        if (valida) {
+          console.log(123)
+        }
+      })
+    },
+    getCodeGraphic(obj) {
+      // this.form.captcha = obj.code;
+      this.form.checkKey = obj.key
+    },
+    changeType(val) {
+      if (+val === 2) {
+        this.form = {
+          username: null,
+          password: null,
+          captcha: null,
+          checkKey: null
+        }
+      } else {
+        this.form = {
+          phone: null,
+          smscode: null
+        }
       }
     }
   }

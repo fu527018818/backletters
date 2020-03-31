@@ -132,14 +132,14 @@ export default {
     }
   },
   mounted() {
-    this.$api.register(
-      this.form
-    ).then(res => {
-      this.$message.success('注册成功')
-      this.$router.push({
-        path: '/home/login'
-      })
-    })
+    // this.$api.register(
+    //   this.form
+    // ).then(res => {
+    //   this.$message.success('注册成功')
+    //   this.$router.push({
+    //     path: '/home/login'
+    //   })
+    // })
   },
   methods: {
     submit() {

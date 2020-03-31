@@ -163,22 +163,25 @@ export default {
     randomCode() {
       return new Promise((resolve) => {
         if (this.remote == true) {
-          this.$api.getCodeGraphic({}).then(res => {
-            if (res.success) {
-              this.checkKey = res.result.key
-              this.code = res.result.code
-              resolve()
-            } else {
-              this.$message.error('生成验证码错误,请联系系统管理员')
+          this.$api.getCodeGraphic({})
+            .then(res => {
+              if (res.success) {
+                this.checkKey = res.result.key
+                this.code = res.result.code
+                this.$emit('succeeCodeGraphic', this.getLoginParam())
+                resolve()
+              } else {
+                this.$message.error('生成验证码错误,请联系系统管理员')
+                this.code = 'BUG'
+                resolve()
+              }
+            }).catch(() => {
+              console.log('生成验证码连接服务器异常')
               this.code = 'BUG'
               resolve()
-            }
-          }).catch(() => {
-            console.log('生成验证码连接服务器异常')
-            this.code = 'BUG'
-            resolve()
-          })
+            })
         } else {
+          console.log(123)
           this.randomLocalCode()
           resolve()
         }
