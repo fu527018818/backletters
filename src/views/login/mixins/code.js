@@ -6,6 +6,9 @@ export default {
       interval: null
     }
   },
+  mounted() {
+    console.log(this.$route)
+  },
   methods: {
     setInter() {
       this.interval = setInterval(
@@ -18,11 +21,13 @@ export default {
           }
         }, 1000)
     },
+
     getCode() {
       // 0 .登录模板、1.注册模板、2.忘记密码模板
+      // this.$route
       this.$api.getCode({
         phone: this.form.phone,
-        smsmode: '1'
+        smsmode: this.$route.path === '/home/register' ? '1' : this.$route.path === '/home/login' ? '0' : '2'
       })
         .then(res => {
           this.status = true

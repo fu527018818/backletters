@@ -23,8 +23,9 @@
           label="手机号"
         >
           <el-input
-            v-model.number="form.phone"
+            v-model="form.phone"
             placeholder="请输入手机号"
+            type="number"
           />
         </el-form-item>
         <el-form-item

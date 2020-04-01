@@ -10,9 +10,9 @@ const getDefaultState = () => {
 
 const state = {
   ...getDefaultState(),
-  userInfo: {},
-  productList: [],
-  permissionList: []
+  userInfo: {}
+  // productList: [],
+  // permissionList: []
 }
 
 const mutations = {
@@ -27,26 +27,39 @@ const mutations = {
   },
   removeInfo: (state, userInfo = {}) => {
     state.userInfo = userInfo
-  },
-  setPermissionList: (state, permissionList = []) => {
-    state.permissionList = permissionList
   }
+  // setPermissionList: (state, permissionList = []) => {
+  //   state.permissionList = permissionList
+  // }
 }
 
 const actions = {
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
+  login({ commit }, { form, loginType }) {
+    console.log(form)
+    console.log(loginType)
     return new Promise((resolve, reject) => {
-      $api.login({ username: username.trim(), password: password })
-        .then(response => {
-          const { data } = response
-          commit('SET_TOKEN', data.token)
-          setToken(data.token)
-          resolve()
-        }).catch(error => {
-          console.log(error)
-          reject(error)
-        })
+      if (+loginType === 2) {
+        $api.loginAccount(form)
+          .then(response => {
+            const { result } = response
+            commit('SET_TOKEN', result.token)
+            setToken(result.token)
+            commit('setUserInfo', result.userInfo)
+            resolve()
+          }).catch(error => {
+            reject(error)
+          })
+      } else {
+        $api.loginPhone(form)
+          .then(response => {
+            const { result } = response
+            commit('SET_TOKEN', result.token)
+            setToken(result.token)
+            resolve()
+          }).catch(error => {
+            reject(error)
+          })
+      }
     })
   },
   getInfo({ commit, state }) {
@@ -63,14 +76,14 @@ const actions = {
       })
     })
   }, // 获取商品列表
-  getUserPermission({ commit, state }) {
-    return new Promise(resolve => {
-      $api.domains({}).then(res => {
-        resolve(res.data.result)
-        commit('setPermissionList', res.data.result)
-      })
-    })
-  },
+  // getUserPermission({ commit, state }) {
+  //   return new Promise(resolve => {
+  //     $api.domains({}).then(res => {
+  //       resolve(res.data.result)
+  //       commit('setPermissionList', res.data.result)
+  //     })
+  //   })
+  // },
   logout({ commit, state }) {
     removeToken()
     resetRouter()

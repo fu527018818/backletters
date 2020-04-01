@@ -42,6 +42,7 @@
           <el-input
             v-model="form.password"
             placeholder="请输入密码"
+            type="password"
           />
         </el-form-item>
         <el-form-item
@@ -183,13 +184,19 @@ export default {
     login() {
       this.$refs.form.validate((valida) => {
         if (valida) {
-          console.log(123)
+          const form = this.form
+          const loginType = this.loginType
+          this.$store.dispatch('user/login', { form, loginType })
+            .then(() => {
+              this.$router.push({ path: '/' })
+            })
         }
       })
     },
     getCodeGraphic(obj) {
+      console.log(obj)
       // this.form.captcha = obj.code;
-      this.form.checkKey = obj.key
+      this.form.checkKey = obj.checkKey
     },
     changeType(val) {
       if (+val === 2) {

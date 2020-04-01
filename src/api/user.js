@@ -1,10 +1,18 @@
 import request from '@/utils/request'
 export default {
-  // login: data => request({
-  //   url: '/v1/api/login',
-  //   method: 'post',
-  //   data
-  // }), // 注册
+  // 账号密码登录
+  loginAccount: data => request({
+    url: '/bg/client/login',
+    method: 'post',
+    data
+  }),
+  // 手机号码登录
+  loginPhone: data => request({
+    url: '/bg/client/phoneLogin',
+    method: 'post',
+    data
+  }),
+  // 注册
   register: data => request({
     url: '/bg/client/register',
     method: 'post',

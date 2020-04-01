@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import Qs from 'qs'
+// import Qs from 'qs'
 // import { getToken } from '@/utils/auth'
 
 // create an axios instance
@@ -20,18 +20,21 @@ const service = axios.create({
   //   }
   // ],
   // responseType: 'json'
+
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
     // Do something before request is sent
-    // const token = store.getters.token
-    // if (token) {
-    // 让每个请求携带token
-    // eslint-disable-next-line no-param-reassign
-    // config.headers.Authorization = `Basic ${token}`
-    // }
+    const token = store.getters.token
+    if (token) {
+      //eslint -disable-next-line no-param-reassign
+      config.headers = {
+        ...config.headers,
+        'X-Access-Token': token
+      }
+    }
     return config
   },
   error => {
@@ -57,9 +60,9 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 0) {
+    if (!res.success) {
       Message({
-        message: res.msg || 'Error',
+        message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
@@ -77,14 +80,13 @@ service.interceptors.response.use(
         })
       }
       store.commit('app/setPageLoading', false)
-      return Promise.reject(new Error(res.msg || 'Error'))
+      return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res
     }
   },
   error => {
-    console.log(error)
-    const msg = error.response.msg || error.response.data.msg || error.message
+    const msg = error.response.message || error.response.data.message || error.message
     Message({
       message: msg,
       type: 'error',

@@ -32,10 +32,10 @@ module.exports = {
   devServer: {
     port: port,
     open: true,
-    overlay: {
-      warnings: false,
-      errors: true
-    },
+    // overlay: {
+    //   warnings: false,
+    //   errors: true
+    // },
     proxy: {
       '/bg': {
         target: 'http://api.sanrz.com:81/',
@@ -43,8 +43,8 @@ module.exports = {
         ws: false
         // pathRewrite: { '^/jeecg-boot': '' }
       }
-    },
-    before: require('./mock/mock-server.js')
+    }
+    // before: require('./mock/mock-server.js')
   },
 
   css: {

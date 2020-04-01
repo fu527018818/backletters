@@ -40,16 +40,20 @@
           style="width: 100%"
         >
           <el-table-column
-            prop="payTime"
+            prop="pName"
             label="项目名称"
           />
           <el-table-column
-            prop="name"
+            prop="letterMoney"
             label="保费"
           />
           <el-table-column
-            prop="mobile"
+            prop="updateTimes"
             label="提交时间"
+          />
+          <el-table-column
+            prop="status"
+            label="状态"
           />
           <el-table-column
             label="操作"
@@ -65,6 +69,7 @@
               <el-button
                 type="danger"
                 size="small"
+                @click="deleteOrder(scope.row)"
               >
                 删除
               </el-button>
@@ -86,16 +91,16 @@
 
 <script>
 import AppTableModel from '@/components/AppTableModel'
+import Pagination from '@/components/Pagination'
 export default {
   name: 'Order',
   components: {
-    AppTableModel
+    AppTableModel,
+    Pagination
   },
   data() {
     return {
       formQuery: {
-        orderId: null,
-        time: null,
         status: null
       },
       options: [
@@ -105,15 +110,15 @@ export default {
         },
         {
           label: '未支付',
-          value: 1
+          value: 0
         },
         {
           label: '已支付',
-          value: 2
+          value: 1
         },
         {
           label: '已完成',
-          value: 3
+          value: 2
         }
       ],
       list: [],
@@ -124,12 +129,46 @@ export default {
       }
     }
   },
+  created() {
+    this.$store.commit('app/setPageLoading', true)
+    this.init()
+  },
   methods: {
     onSubmit() {
-
+      this.listQuery.page = 1
+      this.$store.commit('app/setPageLoading', true)
+      this.init()
     },
     changePage() {
 
+    },
+    deleteOrder(val) {
+      this.$confirm('此操作将永久删除保函, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$api.projectOrderDelete({
+          id: val.id
+        }).then(res => {
+          this.init()
+          this.$message.success('删除成功')
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    init() {
+      this.$api.projectLetter({
+        status: this.formQuery.status
+      }).then(res => {
+        this.$store.commit('app/setPageLoading', false)
+        this.listQuery.total = res.result.total
+        this.list = res.result.records
+      })
     }
   }
 }
