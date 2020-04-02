@@ -12,7 +12,12 @@
       >
         <el-breadcrumb separator="/" separator-class="el-icon-arrow-right">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{path:$route.fullPath}">{{ $route.meta.title }}</el-breadcrumb-item>
+          <el-breadcrumb-item
+            v-for="item in crumbsList"
+            :key="item.path"
+            :to="{path:item.path}"
+          >{{ item.meta.title }}
+          </el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <app-main />
@@ -50,6 +55,10 @@ export default {
         withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === 'mobile'
       }
+    },
+    crumbsList() {
+      if (this.$util.isEmpty(this.$route.matched)) return []
+      return this.$route.matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
     }
   },
   mounted() {

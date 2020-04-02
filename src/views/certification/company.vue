@@ -22,7 +22,7 @@
                 prop="companyName"
               >
                 <el-input
-                  v-model.number="companyFrom.companyName"
+                  v-model="companyFrom.companyName"
                   placeholder="请输入企业名称"
                 />
               </el-form-item>
@@ -31,7 +31,7 @@
                 prop="companySocialCreditCode"
               >
                 <el-input
-                  v-model.number="companyFrom.companySocialCreditCode"
+                  v-model="companyFrom.companySocialCreditCode"
                   placeholder="请输入信用编码"
                 />
               </el-form-item>
@@ -40,7 +40,7 @@
                 label="企业税号："
               >
                 <el-input
-                  v-model.number="companyFrom.companyTaxNumber"
+                  v-model="companyFrom.companyTaxNumber"
                   placeholder="请输入企业税号"
                 />
               </el-form-item>
@@ -49,7 +49,7 @@
                 prop="companyOrganizationNo"
               >
                 <el-input
-                  v-model.number="companyFrom.companyOrganizationNo"
+                  v-model="companyFrom.companyOrganizationNo"
                   placeholder="请输入企业组织机构代码"
                 />
               </el-form-item>
@@ -60,6 +60,7 @@
                 <el-date-picker
                   v-model="companyFrom.companyValidateDate"
                   type="date"
+                  value-format="yyyy-MM-dd"
                   placeholder="选择日期"
                 />
               </el-form-item>
@@ -68,7 +69,7 @@
                 label="企业注册地址："
               >
                 <el-input
-                  v-model.number="companyFrom.companyAddress"
+                  v-model="companyFrom.companyAddress"
                   placeholder="请输入企业注册地址"
                 />
               </el-form-item>
@@ -77,7 +78,7 @@
                 label="法人姓名："
               >
                 <el-input
-                  v-model.number="companyFrom.companyLegalPersons"
+                  v-model="companyFrom.companyLegalPersons"
                   placeholder="请输入法人姓名"
                 />
               </el-form-item>
@@ -86,7 +87,7 @@
                 label="法人手机号码："
               >
                 <el-input
-                  v-model.number="companyFrom.companyLegalPersonsMobile"
+                  v-model="companyFrom.companyLegalPersonsMobile"
                   placeholder="请输入法人手机号码"
                 />
               </el-form-item>
@@ -95,7 +96,7 @@
                 label="法人身份证号码："
               >
                 <el-input
-                  v-model.number="companyFrom.companyLegalPersonsIdCard"
+                  v-model="companyFrom.companyLegalPersonsIdCard"
                   placeholder="请输入法人身份证号码"
                 />
               </el-form-item>
@@ -104,7 +105,7 @@
                 prop="companyEmail"
               >
                 <el-input
-                  v-model.number="companyFrom.companyEmail"
+                  v-model="companyFrom.companyEmail"
                   placeholder="请输入企业邮箱"
                 />
               </el-form-item>
@@ -119,7 +120,7 @@
                 label="企业电话："
               >
                 <el-input
-                  v-model.number="companyFrom.companyMobile"
+                  v-model="companyFrom.companyMobile"
                   placeholder="请输入企业电话"
                 />
               </el-form-item>
@@ -128,7 +129,7 @@
                 prop="companyBank"
               >
                 <el-input
-                  v-model.number="companyFrom.companyBank"
+                  v-model="companyFrom.companyBank"
                   placeholder="请输入企业银行名称"
                 />
               </el-form-item>
@@ -137,7 +138,7 @@
                 label="开户银行账号："
               >
                 <el-input
-                  v-model.number="companyFrom.companyBankNo"
+                  v-model="companyFrom.companyBankNo"
                   placeholder="请输入开户银行账号"
                 />
               </el-form-item>
@@ -146,7 +147,7 @@
                 label="邮政编码："
               >
                 <el-input
-                  v-model.number="companyFrom.companyPostNo"
+                  v-model="companyFrom.companyPostNo"
                   placeholder="请输入邮政编码"
                 />
               </el-form-item>
@@ -260,9 +261,9 @@ export default {
         companySocialCreditCode: '',
         // companyStatus: {},
         companyTaxNumber: '',
-        companyValidateDate: '',
-        createBy: '',
-        createTime: ''
+        companyValidateDate: ''
+        // createBy: '',
+        // createTime: ''
         // id: '',
         // updateBy: '',
         // updateTime: '',
@@ -301,10 +302,12 @@ export default {
           this.$rules.mobile
         ],
         companyLegalPersonsIdCard: [
-          this.$rules.required('法人身份证号码')
+          this.$rules.required('法人身份证号码'),
+          this.$rules.idCard
         ],
         companyEmail: [
-          this.$rules.required('企业邮箱')
+          this.$rules.required('企业邮箱'),
+          this.$rules.email
         ],
         companyMobile: [
           this.$rules.required('企业电话')
@@ -336,7 +339,7 @@ export default {
   methods: {
     submit(callBack) {
       callBack(() => {
-        return this.companySave(this.companyFrom)
+        return this.$api.companySave(this.companyFrom)
           .then(res => {
 
           })
