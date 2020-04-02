@@ -6,7 +6,7 @@ export default {
     data
   }),
   projectInfo: data => request({
-    url: '/bg/client/project/projectInfo',
+    url: `/bg/client/project/projectInfo/${data.id}`,
     method: 'post',
     data
   }),

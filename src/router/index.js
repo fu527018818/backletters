@@ -87,6 +87,12 @@ export const constantRouterMap = [
       name: 'ProjectOrder',
       component: () => import('@/views/project/order'),
       meta: { title: '保函查询', icon: 'peoples' }
+    },
+    {
+      path: 'detail',
+      name: 'ProjectDetail',
+      component: () => import('@/views/project/detail'),
+      meta: { title: '项目详情', icon: 'peoples' }
     }
 
     ]

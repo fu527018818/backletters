@@ -66,12 +66,14 @@
           >
             <template slot-scope="scope">
               <el-button
-                v-if="scope.row.app_type !== 0"
                 type="primary"
                 size="small"
               >
                 <router-link
-                  :to="{path:'/huopin/editUser'}"
+                  :to="{path:'/project/detail',
+                        query:{
+                          id: scope.row.id
+                        }}"
                 >
                   查看详情
                 </router-link>
