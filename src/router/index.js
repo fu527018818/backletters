@@ -77,6 +77,9 @@ export const constantRouterMap = [
     path: '/project',
     component: Layout,
     redirect: '/project/search',
+    meta: {
+      title: '项目查询'
+    },
     children: [{
       path: 'search',
       name: 'ProjectSearch',
