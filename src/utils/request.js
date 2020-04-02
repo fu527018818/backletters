@@ -67,16 +67,18 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      if (res.status === 500 && res.message === 'Token失效，请重新登录') {
         // to re-login
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-          confirmButtonText: 'Re-Login',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
+        // MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
+        //   confirmButtonText: 'Re-Login',
+        //   cancelButtonText: 'Cancel',
+        //   type: 'warning'
+        // }).then(() => {
+
+        // })
+        console.log(123)
+        store.dispatch('user/logout').then(() => {
+          location.reload()
         })
       }
       store.commit('app/setPageLoading', false)
@@ -86,6 +88,21 @@ service.interceptors.response.use(
     }
   },
   error => {
+    console.log(error.response)
+    if (error.response.status === 500 && error.response.data.message === 'Token失效，请重新登录') {
+      // to re-login
+      // MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
+      //   confirmButtonText: 'Re-Login',
+      //   cancelButtonText: 'Cancel',
+      //   type: 'warning'
+      // }).then(() => {
+
+      // })
+      console.log(123)
+      store.dispatch('user/logout').then(() => {
+        location.reload()
+      })
+    }
     const msg = error.response.message || error.response.data.message || error.message
     Message({
       message: msg,

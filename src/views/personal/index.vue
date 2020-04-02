@@ -47,12 +47,12 @@ export default {
           name: '修改密码',
           url: '/personal/changePassword',
           img: require('@/assets/images/personal/gr_zh.png')
-        },
-        {
-          name: '我的消息',
-          url: '/project/order',
-          img: require('../../assets/images/personal/grzx_xx.png')
         }
+        // {
+        //   name: '我的消息',
+        //   url: '/project/order',
+        //   img: require('../../assets/images/personal/grzx_xx.png')
+        // }
       ]
     }
   },

@@ -7,12 +7,23 @@
     </div>
     <div class="edit_box">
       <AppForm
+        ref="appForm"
         label-width="120px"
         :model="form"
         :rules="authRules"
         cancel-text="返回"
         @submit-form="submit"
       >
+        <el-form-item
+          label="旧密码："
+          prop="oldpassword"
+        >
+          <el-input
+            v-model="form.oldpassword"
+            type="password"
+            placeholder="请输入密码"
+          />
+        </el-form-item>
         <el-form-item
           label="新密码："
           prop="password"
@@ -25,10 +36,10 @@
         </el-form-item>
         <el-form-item
           label="确认新密码："
-          prop="repass"
+          prop="confirmpassword"
         >
           <el-input
-            v-model="form.repass"
+            v-model="form.confirmpassword"
             type="password"
             placeholder="请输入密码"
           />
@@ -37,6 +48,7 @@
           <el-button
             style="width:100%"
             type="primary"
+            @click="submit"
           >提交
           </el-button>
         </div>
@@ -55,32 +67,25 @@ export default {
   data() {
     return {
       form: {
+        oldPassword: null,
         password: null,
-        repass: null
+        confirmpassword: null
       }
     }
   },
   computed: {
     authRules() {
       return {
-        mobile: [
-          this.$rules.required('手机号'),
-          this.$rules.mobile
-        ],
-        userName: [
-          this.$rules.required('账号'),
-          this.$rules.account
-        ],
         oldPassword: [
-          this.$rules.required('密码'),
+          this.$rules.required('旧密码'),
           ...this.$rules.password()
         ],
         password: [
           this.$rules.required('密码'),
           ...this.$rules.password()
         ],
-        repass: [
-          this.$rules.required('密码'),
+        confirmpassword: [
+          this.$rules.required('确认密码'),
           ...this.$rules.repassword(this.form, 'password')
         ]
       }
@@ -88,7 +93,20 @@ export default {
   },
   methods: {
     submit() {
-
+      this.$refs.appForm.validate((valida) => {
+        if (valida) {
+          this.$api.updatePassword(this.form)
+            .then(res => {
+              this.$message.success('密码修改成功')
+              // setTimeout(() => {
+              //   this.$store.dispatch('user/logout')
+              //     .then(() => {
+              //       location.reload()
+              //     })
+              // }, 2000)
+            })
+        }
+      })
     }
   }
 }

@@ -14,131 +14,206 @@
               ref="loginForm"
               :model="companyFrom"
               label-position="top"
+              :rules="authRules"
               @submit-form="submit"
             >
-              <el-form-item label="企业名称：">
+              <el-form-item
+                label="企业名称："
+                prop="companyName"
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyName"
                   placeholder="请输入企业名称"
                 />
               </el-form-item>
-              <el-form-item label="统一社会信用编码：">
+              <el-form-item
+                label="统一社会信用编码："
+                prop="companySocialCreditCode"
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companySocialCreditCode"
                   placeholder="请输入信用编码"
                 />
               </el-form-item>
-              <el-form-item label="企业税号：">
+              <el-form-item
+                prop="companyTaxNumber"
+                label="企业税号："
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyTaxNumber"
                   placeholder="请输入企业税号"
                 />
               </el-form-item>
-              <el-form-item label="企业组织机构代码：">
+              <el-form-item
+                label="企业组织机构代码："
+                prop="companyOrganizationNo"
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyOrganizationNo"
                   placeholder="请输入企业组织机构代码"
                 />
               </el-form-item>
-              <el-form-item label="企业营业期限(营业止期)：">
+              <el-form-item
+                label="企业营业期限(营业止期)："
+                prop="companyValidateDate"
+              >
                 <el-date-picker
-                  v-model="companyFrom.name"
+                  v-model="companyFrom.companyValidateDate"
                   type="date"
                   placeholder="选择日期"
                 />
               </el-form-item>
-              <el-form-item label="企业注册地址：">
+              <el-form-item
+                prop="companyAddress"
+                label="企业注册地址："
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyAddress"
                   placeholder="请输入企业注册地址"
                 />
               </el-form-item>
-              <el-form-item label="法人姓名：">
+              <el-form-item
+                prop="companyLegalPersons"
+                label="法人姓名："
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyLegalPersons"
                   placeholder="请输入法人姓名"
                 />
               </el-form-item>
-              <el-form-item label="法人手机号码：">
+              <el-form-item
+                prop="companyLegalPersonsMobile"
+                label="法人手机号码："
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyLegalPersonsMobile"
                   placeholder="请输入法人手机号码"
                 />
               </el-form-item>
-              <el-form-item label="法人身份证号码：">
+              <el-form-item
+                prop="companyLegalPersonsIdCard"
+                label="法人身份证号码："
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyLegalPersonsIdCard"
                   placeholder="请输入法人身份证号码"
                 />
               </el-form-item>
-              <el-form-item label="企业邮箱：">
+              <el-form-item
+                label="企业邮箱："
+                prop="companyEmail"
+              >
+                <el-input
+                  v-model.number="companyFrom.companyEmail"
+                  placeholder="请输入企业邮箱"
+                />
+              </el-form-item>
+              <!-- <el-form-item label="企业邮箱：">
                 <el-input
                   v-model.number="companyFrom.name"
                   placeholder="请输入企业邮箱"
                 />
-              </el-form-item>
-              <el-form-item label="企业邮箱：">
+              </el-form-item> -->
+              <el-form-item
+                prop="companyMobile"
+                label="企业电话："
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
-                  placeholder="请输入企业邮箱"
-                />
-              </el-form-item>
-              <el-form-item label="企业电话：">
-                <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyMobile"
                   placeholder="请输入企业电话"
                 />
               </el-form-item>
-              <el-form-item label="企业银行名称：">
+              <el-form-item
+                label="企业银行名称："
+                prop="companyBank"
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyBank"
                   placeholder="请输入企业银行名称"
                 />
               </el-form-item>
-              <el-form-item label="开户银行账号：">
+              <el-form-item
+                prop="companyBankNo"
+                label="开户银行账号："
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
-                  placeholder="请输入企业银行名称"
+                  v-model.number="companyFrom.companyBankNo"
+                  placeholder="请输入开户银行账号"
                 />
               </el-form-item>
-              <el-form-item label="邮政编码：">
+              <el-form-item
+                prop="companyPostNo"
+                label="邮政编码："
+              >
                 <el-input
-                  v-model.number="companyFrom.name"
+                  v-model.number="companyFrom.companyPostNo"
                   placeholder="请输入邮政编码"
                 />
               </el-form-item>
-              <el-form-item label="法人身份证人像面照片：">
+              <el-form-item
+                label="法人身份证人像面照片："
+                prop="companyLegalPersonsIdCardHead"
+              >
                 <el-upload
                   class="avatar-uploader"
                   action="/"
                   :show-file-list="false"
+                  :auto-upload="false"
+                  :limit="1"
+                  :on-change="(file,fileList)=>uploadImg(file,fileList,'companyLegalPersonsIdCardHead')"
                 >
-                  <img v-if="companyFrom.name" :src="companyFrom.name" class="avatar">
+                  <img
+                    v-if="companyFrom.companyLegalPersonsIdCardHead"
+                    :src="$baseImgAddress+companyFrom.companyLegalPersonsIdCardHead"
+                    class="avatar"
+                  >
                   <i v-else class="el-icon-plus avatar-uploader-icon" />
                 </el-upload>
               </el-form-item>
-              <el-form-item label="法人身份证国徽面照片：">
+              <el-form-item
+                prop="companyLegalPersonsIdCardEnd"
+                label="法人身份证国徽面照片："
+              >
                 <el-upload
                   class="avatar-uploader"
                   action="/"
                   :show-file-list="false"
+                  :auto-upload="false"
+                  :limit="1"
+                  :on-change="(file,fileList)=>uploadImg(file,fileList,'companyLegalPersonsIdCardEnd')"
                 >
-                  <img v-if="companyFrom.name" :src="companyFrom.name" class="avatar">
+                  <img
+                    v-if="companyFrom.companyLegalPersonsIdCardEnd"
+                    :src="$baseImgAddress+companyFrom.companyLegalPersonsIdCardEnd"
+                    class="avatar"
+                  >
                   <i v-else class="el-icon-plus avatar-uploader-icon" />
                 </el-upload>
               </el-form-item>
-              <el-form-item label="营业执照：">
+              <el-form-item
+                label="营业执照："
+                prop="companyBusinessLicense"
+              >
                 <el-upload
                   class="avatar-uploader"
                   action="/"
                   :show-file-list="false"
+                  :auto-upload="false"
+                  :limit="1"
+                  :on-change="(file,fileList)=>uploadImg(file,fileList,'companyBusinessLicense')"
                 >
-                  <img v-if="companyFrom.name" :src="companyFrom.name" class="avatar">
+                  <img
+                    v-if="companyFrom.companyBusinessLicense"
+                    :src="$baseImgAddress+companyFrom.companyBusinessLicense"
+                    class="avatar"
+                  >
                   <i v-else class="el-icon-plus avatar-uploader-icon" />
                 </el-upload>
               </el-form-item>
               <el-form-item label="">
-                <el-checkbox v-model="checked">已阅读《用户服务协议》</el-checkbox>
+                <el-checkbox
+                  v-model="checked"
+                >已阅读《用户服务协议》</el-checkbox>
               </el-form-item>
             </AppForm>
           </div>
@@ -168,14 +243,123 @@ export default {
   data() {
     return {
       companyFrom: {
-        name: null
+        companyAddress: '',
+        companyBank: '',
+        companyBankNo: '',
+        companyBusinessLicense: '',
+        companyEmail: '',
+        companyLegalPersons: '',
+        companyLegalPersonsIdCard: '',
+        companyLegalPersonsIdCardEnd: '',
+        companyLegalPersonsIdCardHead: '',
+        companyLegalPersonsMobile: '',
+        companyMobile: '',
+        companyName: '',
+        companyOrganizationNo: '',
+        companyPostNo: '',
+        companySocialCreditCode: '',
+        // companyStatus: {},
+        companyTaxNumber: '',
+        companyValidateDate: '',
+        createBy: '',
+        createTime: ''
+        // id: '',
+        // updateBy: '',
+        // updateTime: '',
+        // userId: ''
       },
-      checked: true
+      checked: true,
+      baseImgAddress: null
     }
   },
+  computed: {
+    authRules() {
+      return {
+        companyName: [
+          this.$rules.required('企业名称')
+        ],
+        companySocialCreditCode: [
+          this.$rules.required('统一社会信用编码')
+        ],
+        companyTaxNumber: [
+          this.$rules.required('企业税号')
+        ],
+        companyOrganizationNo: [
+          this.$rules.required('企业组织机构代码')
+        ],
+        companyValidateDate: [
+          this.$rules.required('企业营业期限(营业止期)')
+        ],
+        companyAddress: [
+          this.$rules.required('企业注册地址')
+        ],
+        companyLegalPersons: [
+          this.$rules.required('法人姓名')
+        ],
+        companyLegalPersonsMobile: [
+          this.$rules.required('法人手机号码'),
+          this.$rules.mobile
+        ],
+        companyLegalPersonsIdCard: [
+          this.$rules.required('法人身份证号码')
+        ],
+        companyEmail: [
+          this.$rules.required('企业邮箱')
+        ],
+        companyMobile: [
+          this.$rules.required('企业电话')
+        ],
+        companyBank: [
+          this.$rules.required('企业银行名称')
+        ],
+        companyBankNo: [
+          this.$rules.required('企业银行名称')
+        ],
+        companyPostNo: [
+          this.$rules.required('邮政编码')
+        ],
+        companyLegalPersonsIdCardHead: [
+          this.$rules.required('法人身份证人像面照片')
+        ],
+        companyLegalPersonsIdCardEnd: [
+          this.$rules.required('法人身份证国徽面照片')
+        ],
+        companyBusinessLicense: [
+          this.$rules.required('营业执照')
+        ]
+      }
+    }
+  },
+  created() {
+    // this.baseImgAddress = process.env.VUE_APP_BASE_IMG_SITE
+  },
   methods: {
-    submit() {
+    submit(callBack) {
+      callBack(() => {
+        return this.companySave(this.companyFrom)
+          .then(res => {
 
+          })
+      })
+    },
+    init() {
+      this.$api.companyInfo({})
+        .then(res => {
+          if (!this.$util.isEmpty(res.result)) {
+            Object.keys(this.companyFrom)
+              .forEach(i => {
+                this.companyFrom[i] = res.result[i]
+              })
+          }
+        })
+    },
+    uploadImg(file, fileList, key) {
+      const formdata = new FormData()
+      formdata.append('file', file.raw)
+      this.$api.commonUpload(formdata)
+        .then(res => {
+          this.companyFrom[key] = res.message
+        })
     }
   }
 }

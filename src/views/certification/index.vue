@@ -14,8 +14,10 @@
       <div>企业认证</div>
       <div class="dec">完成认证后可申请保函</div>
       <el-button type="primary">
-        <router-link to="/certification/company">
-          我要认证
+        <router-link
+          to="/certification/company"
+        >
+          {{ !isApprove?'我要认证':'已认证' }}
         </router-link>
       </el-button>
     </div>
@@ -24,7 +26,25 @@
 
 <script>
 export default {
-  name: 'CertificationIndex'
+  name: 'CertificationIndex',
+  data() {
+    return {
+      isApprove: false
+    }
+  },
+  created() {
+    this.init()
+  },
+  methods: {
+    init() {
+      this.$api.companyInfo({})
+        .then(res => {
+          if (!this.$util.isEmpty(res.result)) {
+            this.isApprove = true
+          }
+        })
+    }
+  }
 }
 </script>
 

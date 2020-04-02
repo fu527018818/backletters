@@ -45,5 +45,17 @@ export default {
     url: '/bg/client/forgetPassword',
     method: 'put',
     data
+  }),
+  // 公共上传文件
+  commonUpload: data => request({
+    url: '/bg/client/common/upload',
+    method: 'post',
+    data
+  }),
+  // 密码修改
+  updatePassword: data => request({
+    url: '/bg/client/updatePassword',
+    method: 'put',
+    data
   })
 }

@@ -194,8 +194,6 @@ export default {
       })
     },
     getCodeGraphic(obj) {
-      console.log(obj)
-      // this.form.captcha = obj.code;
       this.form.checkKey = obj.checkKey
     },
     changeType(val) {
