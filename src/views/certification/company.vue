@@ -213,7 +213,7 @@
               </el-form-item>
               <el-form-item label="">
                 <el-checkbox
-                  v-model="checked"
+                  v-model="companyFrom.checked"
                 >已阅读《用户服务协议》</el-checkbox>
               </el-form-item>
             </AppForm>
@@ -261,15 +261,15 @@ export default {
         companySocialCreditCode: '',
         // companyStatus: {},
         companyTaxNumber: '',
-        companyValidateDate: ''
+        companyValidateDate: '',
         // createBy: '',
         // createTime: ''
         // id: '',
         // updateBy: '',
         // updateTime: '',
         // userId: ''
+        checked: true
       },
-      checked: true,
       baseImgAddress: null
     }
   },
@@ -334,14 +334,14 @@ export default {
     }
   },
   created() {
-    // this.baseImgAddress = process.env.VUE_APP_BASE_IMG_SITE
+
   },
   methods: {
     submit(callBack) {
       callBack(() => {
         return this.$api.companySave(this.companyFrom)
           .then(res => {
-
+            this.$message.success('修改成功')
           })
       })
     },
