@@ -66,11 +66,14 @@ export const constantRouterMap = [
     path: '/apply',
     component: Layout,
     redirect: '/apply/index',
+    meta: {
+      title: '申请保函'
+    },
     children: [{
       path: 'index',
       name: 'ApplyIndex',
       component: () => import('@/views/apply/index'),
-      meta: { title: '申请保函', icon: 'peoples' }
+      meta: { title: '申请保函', icon: 'peoples', breadcrumb: false }
     }]
   },
   {
@@ -84,7 +87,7 @@ export const constantRouterMap = [
       path: 'search',
       name: 'ProjectSearch',
       component: () => import('@/views/project/search'),
-      meta: { title: '项目查询', icon: 'peoples' }
+      meta: { title: '项目查询', icon: 'peoples', breadcrumb: false }
     }, {
       path: 'order',
       name: 'ProjectOrder',
@@ -104,11 +107,12 @@ export const constantRouterMap = [
     path: '/personal',
     component: Layout,
     redirect: '/personal/index',
+    meta: { title: '个人中心', icon: 'peoples' },
     children: [{
       path: 'index',
       name: 'ProjectSearch',
       component: () => import('@/views/personal/index'),
-      meta: { title: '个人中心', icon: 'peoples' }
+      meta: { title: '个人中心', icon: 'peoples', breadcrumb: false }
     },
     {
       path: 'changePassword',
@@ -124,11 +128,12 @@ export const constantRouterMap = [
     path: '/certification',
     component: Layout,
     redirect: '/certification/index',
+    meta: { title: '我要认证', icon: 'peoples' },
     children: [{
       path: 'index',
       name: 'CertificationIndex',
       component: () => import('@/views/certification/index'),
-      meta: { title: '我要认证', icon: 'peoples' }
+      meta: { title: '我要认证', icon: 'peoples', breadcrumb: false }
     }, {
       path: 'company',
       name: 'CertificationCompany',
