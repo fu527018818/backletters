@@ -1,7 +1,7 @@
 import $api from '@/api'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
-
+import util from '@/utils/util'
 const getDefaultState = () => {
   return {
     token: getToken()
@@ -10,9 +10,8 @@ const getDefaultState = () => {
 
 const state = {
   ...getDefaultState(),
-  userInfo: {}
-  // productList: [],
-  // permissionList: []
+  userInfo: {},
+  companyInfo: {}
 }
 
 const mutations = {
@@ -27,16 +26,17 @@ const mutations = {
   },
   removeInfo: (state, userInfo = {}) => {
     state.userInfo = userInfo
+  },
+  setCompanyInfo: (state, companyInfo = {}) => {
+    state.companyInfo = companyInfo
+  },
+  removeCompanyInfo: (state) => {
+    state.companyInfo = {}
   }
-  // setPermissionList: (state, permissionList = []) => {
-  //   state.permissionList = permissionList
-  // }
 }
 
 const actions = {
   login({ commit }, { form, loginType }) {
-    console.log(form)
-    console.log(loginType)
     return new Promise((resolve, reject) => {
       if (+loginType === 2) {
         $api.loginAccount(form)
@@ -62,18 +62,23 @@ const actions = {
       }
     })
   },
-  getInfo({ commit, state }) {
+  getCompanyInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      $api.getInfo({}).then(response => {
-        const { data } = response
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
-        commit('setUserInfo', data.result)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
+      $api.companyInfo({})
+        .then(response => {
+          const { data } = response
+          // 4 未认证 0：待审核，1：已审核，2：已变更，3：审核不通过
+          const companyInfo = util.isEmpty(data.result) ? {
+            companyStatusCode: 4
+          } : {
+            ...data.result,
+            companyStatusCode: util.isEmpty(data.result.companyStatusCode) ? 4 : data.result.companyStatusCode
+          }
+          commit('setCompanyInfo', companyInfo)
+          resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
     })
   }, // 获取商品列表
   // getUserPermission({ commit, state }) {
@@ -89,6 +94,7 @@ const actions = {
     resetRouter()
     commit('RESET_STATE')
     commit('removeInfo')
+    commit('removeCompanyInfo')
   },
   resetToken({ commit }) {
     return new Promise(resolve => {

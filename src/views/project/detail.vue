@@ -20,7 +20,7 @@ export default {
       this.$api.projectInfo({
         id: this.$route.query.id
       }).then(res => {
-        //   this.detailInfo
+
       })
     }
   }

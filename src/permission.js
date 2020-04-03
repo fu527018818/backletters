@@ -1,12 +1,12 @@
 import router from '@/router'
-// import store from './store'
+import store from './store'
 // import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
 // import I18n from '@/lang'
-// import { util } from '@/utils'
+import util from '@/utils/util'
 // import { asyncRouterMap, constantRouterMap } from '@/router'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -27,16 +27,15 @@ router.beforeEach(async(to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      // const hasGetUserInfo = store.getters.name
-      // if (hasGetUserInfo) {
-      //   next()
-      // } else {
-      //   try {
-      // get user info
-      // if (util.isEmpty(store.state.user.userInfo)) {
-      //   router.addRoutes(asyncRouterMap)
-      //   await store.dispatch('user/getInfo')
-      // }
+      const companyInfo = store.getters.companyInfo
+      if (!util.isEmpty(companyInfo)) {
+        next()
+      } else {
+        store.dispatch('user/getCompanyInfo')
+          .catch(() => {
+            next()
+          })
+      }
       next()
     }
     // }

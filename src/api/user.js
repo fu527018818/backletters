@@ -23,11 +23,11 @@ export default {
   //   method: 'post',
   //   data
   // }), // 用户问题
-  getInfo: data => request({
-    url: '/v1/account/info',
-    method: 'get',
-    params: data
-  }),
+  // getInfo: data => request({
+  //   url: '/v1/account/info',
+  //   method: 'get',
+  //   params: data
+  // }),
   // 短信验证码
   getCode: data => request({
     url: '/bg/client/sms',
